@@ -22,21 +22,24 @@ const loop = async () => { // start loop function to check that the offset price
   let offsetprice = +financialinvestment * ( 1 + assetreturn ) /* determining the offset price... be careful about returns for shorting */
 
   let priceinformation = await makerestapirequest ( 'GET', '/v2/assets/' + financialasset ) /* retrieve asset price information from shapeshift's coincap api */
-  let dollarprice = priceinformation.priceUsd /* determine the present dollar price of the financial asset */
-  if ( dollarprice )  {
+  let presentprice = priceinformation.data.priceUsd /* determine the present dollar price of the financial asset */
 
-    if ( dollarprice >= offsetprice ) {
-  
-        let message = 'the ' + financialleverage + 'X ' + financialposition + ' on ' + financialasset + ' can be offset for a ' + +equityreturn * 100 + '% return.' /* create message */
-        sendmessage ( recipient, message ) /* send message */
-  
-    }
+  console.log( 'present price: ' + presentprice )
+  console.log( 'offset price: ' + offsetprice )
 
-  }
+  if ( +presentprice >= +offsetprice ) { // check profitability.
+  
+    let message = 'the ' + financialleverage + 'X ' + financialposition + ' on ' + financialasset + ' can be offset for a ' + +equityreturn * 100 + '% return.' /* create message */
+    sendmessage ( recipient, message ) /* send message */
+
+    return false /* set notprofitable variable false */
+
+  } // checked profitability.
 
 } // end loop function.
 
 (async () => {
-	loop () /* loop until offset price is equal to the present price */
-	await delay(5000) /* wait 5000 milliseconds */
+  let notprofitable = true; while (notprofitable) { /* loop until offset price is equal to the present price */
+    notprofitable = loop () ; await delay(5000) /* determine profitability and then wait 5000 milliseconds */
+  }
 })()
