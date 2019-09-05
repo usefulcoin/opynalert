@@ -1,6 +1,6 @@
 #!/bin/bash
 
-read -p "Which asset exactly are we talking about here? (for example 'ethereum') [bitcoin]: " financialasset
+read -p "Which asset exactly are we talking about here? (for example 'bitcoin') [ethereum]: " financialasset
 financialasset=${financialasset:-ethereum}
 
 read -p "At what price did you make your investment? (for example '1400') [175]: " financialinvestment
@@ -18,4 +18,4 @@ equityreturn=${equityreturn:-0.05}
 read -p "On what mobile number may I message you if your dreams come true? [+15104594120]: " contactnumber
 contactnumber=${contactnumber:-+15104594120}
 
-node opynalert.js $financialasset $financialinvestment $financialposition $financialleverage $equityreturn $contactnumber > /tmp/opynalert-${financialasset}-${financialleverage}.log 2>&1 < /tmp/opynalert-${account}-${financialleverage}.log &
+node opynalert.js $financialasset $financialinvestment $financialposition $financialleverage $equityreturn $contactnumber > /tmp/opynalert-${financialasset}-${financialleverage}.log 2>&1 < /tmp/opynalert-${financialasset}-${financialleverage}.log &

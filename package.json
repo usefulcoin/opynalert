@@ -4,10 +4,10 @@
   "description": "opyn alert notification script",
   "main": "opynalert.js",
   "dependencies": {
-    "aws-sdk": "^2.495.0",
+    "aws-sdk": "^2.523.0",
     "node-fetch": "^2.6.0",
-    "qs": "^6.7.0",
-    "ws": "^7.1.0"
+    "qs": "^6.8.0",
+    "ws": "^7.1.2"
   },
   "devDependencies": {},
   "scripts": {

@@ -16,7 +16,7 @@ const recipient = (process.argv[7]) ? process.argv[7] :  '+15104594120' /* the p
 const delay = ms => new Promise(r => setTimeout(r, ms));
 // declared delay function.
 
-function loop () => { // start loop function to check that the offset price has been reached.
+const loop = async () => { // start loop function to check that the offset price has been reached.
 
   let assetreturn = ( financialposition === 'long' ) ? equityreturn/financialleverage : -equityreturn/financialleverage /* determine the return on assets required */
   let offsetprice = +financialinvestment * ( 1 + assetreturn ) /* determining the offset price... be careful about returns for shorting */
@@ -37,6 +37,6 @@ function loop () => { // start loop function to check that the offset price has 
 } // end loop function.
 
 (async () => {
-	loop ()
-	await delay(25000)
+	loop () /* loop until offset price is equal to the present price */
+	await delay(5000) /* wait 5000 milliseconds */
 })()
